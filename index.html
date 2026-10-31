@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Креативные услуги</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&family=Open+Sans:wght@400&display=swap" rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bordeaux: #800020;
+      --bordeaux-light: #b3263f;
+      --bordeaux-dark: #4a0012;
+      --black: #0d0d0d;
+      --card: #1a1a1a;
+      --text: #e6e6e6;
+      --muted: #b8b8b8;
+    }
+
+    body {
+      margin: 0;
+      background: #262626;
+      color: var(--text);
+      font-family: "Open Sans", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1170px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    /* ---------- Services ---------- */
+    .services {
+      flex: 1; /* растягивается, прижимая подвал к низу */
+      padding: 60px 0;
+    }
+
+    .services__title {
+      margin: 0 0 64px;
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: 2.25rem; /* 36px */
+      font-weight: 300;
+      line-height: 1.2;
+      color: #fff;
+    }
+
+    .services__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--card);
+      border-top: 3px solid var(--bordeaux);
+      border-radius: 0;
+      transition: transform 0.2s, box-shadow 0.2s;
+      padding: 30px 30px 30px;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(128, 0, 32, 0.35);
+    }
+
+
+    .card__title {
+      margin: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: 1.25rem; /* 20px */
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--bordeaux-light);
+    }
+
+    .card__text {
+      margin: 20px 0 0;
+      color: var(--muted);
+    }
+
+    /* ---------- Footer ---------- */
+    .footer {
+      background: var(--bordeaux-dark);
+      color: #fff;
+      padding: 40px 15px;
+      text-align: center;
+      font-size: 0.875rem;
+    }
+
+    .footer__text {
+      margin: 0;
+    }
+
+    /* ---------- Adaptive ---------- */
+    @container site (max-width: 1199px) {
+      .container {
+        max-width: 970px;
+      }
+    }
+
+    @container site (max-width: 991px) {
+      .container {
+        max-width: 750px;
+      }
+
+      .services__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .services__title {
+        max-width: 520px;
+      }
+    }
+
+    @container site (max-width: 767px) {
+      .container {
+        max-width: 540px;
+      }
+
+      .services {
+        padding: 40px 0;
+      }
+
+      .services__title {
+        margin-bottom: 40px;
+        font-size: 1.875rem; /* 30px */
+      }
+
+      .services__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @container site (max-width: 575px) {
+      .container {
+        max-width: none;
+        padding: 0 16px;
+      }
+
+      .services__title {
+        font-size: 1.625rem; /* 26px */
+      }
+
+      .card {
+        padding: 25px 20px;
+        border-radius: 0;
+      }
+    }
+
+    /* ---------- Переключатель устройств ---------- */
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: #1a1a1a;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .device-btn {
+      width: 44px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      background: transparent;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      color: #9a9a9a;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s, border-color 0.2s;
+    }
+
+    .device-btn:hover {
+      color: #fff;
+    }
+
+    .device-btn.is-active {
+      color: #fff;
+      background: rgba(128, 0, 32, 0.35);
+      border-color: var(--bordeaux-light);
+    }
+
+    .device-btn svg {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      stroke-linejoin: round;
+    }
+
+    /* Сайт живёт в контейнере: адаптив зависит от его ширины */
+    .site {
+      container: site / inline-size;
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - 64px); /* сайт на всю высоту экрана под панелью */
+      width: 100%;
+      margin: 0 auto;
+      background: var(--black);
+      transition: width 0.3s ease;
+    }
+
+    .site.is-narrow {
+      box-shadow: 0 0 0 1px #3a3a3a, 0 0 40px rgba(0, 0, 0, 0.6);
+    }
+
+    /* На настоящем телефоне панель не нужна */
+    @media (max-width: 767px) {
+      .toolbar { display: none; }
+      .site { width: 100% !important; min-height: 100vh; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar" role="toolbar" aria-label="Выбор версии">
+    <button class="device-btn is-active" data-width="100%" title="Компьютер" aria-label="Компьютер">
+      <svg width="30" height="26" viewBox="0 0 30 26"><rect x="1" y="1" width="28" height="18" rx="1"/><path d="M11 25h8M15 19v6"/></svg>
+    </button>
+    <button class="device-btn" data-width="375px" title="Телефон" aria-label="Телефон">
+      <svg width="14" height="20" viewBox="0 0 14 20"><rect x="1" y="1" width="12" height="18" rx="1.5"/><circle cx="7" cy="16" r="0.8"/></svg>
+    </button>
+  </div>
+
+  <div class="site" id="site">
+      <main class="services">
+        <div class="container">
+          <h1 class="services__title">Мы предлагаем широкий спектр креативных услуг</h1>
+
+          <div class="services__grid">
+            <article class="card">
+              <h2 class="card__title">Высокое качество</h2>
+              <p class="card__text">Каждый проект мы доводим до совершенства: продуманный дизайн, чистый код и внимание к мелочам. Результат, за который не стыдно ни нам, ни вам.</p>
+            </article>
+
+            <article class="card">
+              <h2 class="card__title">Креативная команда</h2>
+              <p class="card__text">Дизайнеры, маркетологи и разработчики работают как одна команда. Мы генерируем свежие идеи и воплощаем их в жизнь в срок.</p>
+            </article>
+
+            <article class="card">
+              <h2 class="card__title">Впечатляющие результаты</h2>
+              <p class="card__text">Мы ставим измеримые цели и добиваемся их. Рост продаж, узнаваемость бренда и лояльность клиентов — то, что вы увидите в цифрах.</p>
+            </article>
+
+            <article class="card">
+              <h2 class="card__title">Лучшие цены</h2>
+              <p class="card__text">Прозрачная стоимость без скрытых платежей. Подберём решение под ваш бюджет и задачи, не жертвуя качеством.</p>
+            </article>
+
+            <article class="card">
+              <h2 class="card__title">Инновации</h2>
+              <p class="card__text">Используем современные технологии и актуальные тренды, чтобы ваш бизнес всегда был на шаг впереди конкурентов.</p>
+            </article>
+
+            <article class="card">
+              <h2 class="card__title">Поддержка 24/7</h2>
+              <p class="card__text">Мы на связи круглосуточно и без выходных. Ответим на вопросы, решим проблемы и поможем в любой ситуации.</p>
+            </article>
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <p class="footer__text">© 2026 Креативное агентство. Все права защищены.</p>
+      </footer>
+  </div>
+
+  <script>
+    const site = document.getElementById('site');
+    const buttons = document.querySelectorAll('.device-btn');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        buttons.forEach((b) => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const width = btn.dataset.width;
+        site.style.width = width;
+        site.classList.toggle('is-narrow', width !== '100%');
+      });
+    });
+  </script>
+</body>
+</html>
